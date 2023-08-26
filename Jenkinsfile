@@ -34,6 +34,7 @@ pipeline {
         stage("Terraform plan") {
             steps {
                 sh 'terraform plan'
+                sh 'echo "i am up till here"'
             }
         }
         stage("Deployment to Minikube") {
