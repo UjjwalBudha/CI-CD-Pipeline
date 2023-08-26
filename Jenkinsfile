@@ -1,22 +1,42 @@
 pipeline {
     agent any
     environment {
+        DOCKERHUB_CREDENTIAL = credentials('docker_cred')
         AWS_ACCESS_KEY_ID = credentials('access_key')
         AWS_SECRET_ACCESS_KEY = credentials('secret_key')
     }
-    
-        stages {
-            stage("Provisioning the kubernetes server") {
-                steps {
-                    sh 'terraform init'
-                    sh 'terraform validate'
-                    sh "aws configure set aws_access_key_id ${access_key}"
-                    sh "aws configure set aws_secret_access_key ${secret_key}"
-                    sh 'terraform apply -auto-approve'
-                    sh 'ls'
-                    // sh 'curl http://checkip.amazonaws.com > publicip.txt' 
-                }
+    stages {
+        stage("Build Nodejs Image") {
+            steps {
+                sh 'docker build -t nodejs .'
+                sh 'docker images'
+                sh 'docker ps'
+                sh 'ls -ltr'
             }
-       
+        }
+        stage("Delivery of Image to Docker Hub") {
+            steps {
+                sh 'docker login'
+                // sh 'docker login -u ${DOCKERHUB_CREDENTIAL_USR} -p ${DOCKERHUB_CREDENTIAL_PSW}'
+                sh 'docker tag nodejs:latest ujjwalbudha000/myrepo:v9'
+                sh 'docker push ujjwalbudha000/myrepo:v9'
+            }
+        }
+        stage("Provisioning the kubernetes server") {
+            steps {
+                sh 'terraform init'
+                sh 'terraform validate'
+                sh "aws configure set aws_access_key_id ${access_key}"
+                sh "aws configure set aws_secret_access_key ${secret_key}"
+                sh 'terraform apply -auto-approve'
+                sh 'ls'
+                // sh 'curl http://checkip.amazonaws.com > publicip.txt' 
+            }
+        }
+        stage("Deployment to Minikube") {
+            steps {
+                sh "echo 'working till here'"
+            }
+        }
     }
 }
