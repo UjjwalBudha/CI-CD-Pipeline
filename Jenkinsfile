@@ -19,9 +19,19 @@ pipeline {
                 sh 'docker push ujjwalbudha000/myrepo:v9'
             }
         }
+
+        stage("Provisioniong the kubernetes server"){
+            steps {
+                sh 'terraform init'
+                sh 'terraform validate'
+                sh 'terraform apply -auto-approve'
+                sh 'curl http://checkip.amazonaws.com > publicip.txt' 
+            }
+        }
+        
         stage("Deployment to Minikube") {
             steps {
-                sh "kubectl apply -f k8s.yml"
+                sh "echo 'working till here'"
             }
         }
     }
