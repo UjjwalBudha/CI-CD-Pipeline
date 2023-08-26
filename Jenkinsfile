@@ -2,6 +2,8 @@ pipeline {
     agent any
     environment {
         DOCKERHUB_CREDENTIAL = credentials('docker_cred')
+        // Docker_username = "UjjwalBudha000"
+        // Docker_password = "Jszg8sL@8ZD7EHb"
         AWS_ACCESS_KEY_ID = credentials('access_key')
         AWS_SECRET_ACCESS_KEY = credentials('secret_key')
     }
@@ -16,7 +18,7 @@ pipeline {
         }
         stage("Delivery of Image to Docker Hub") {
             steps {
-                sh 'docker login'
+                sh 'docker login -u UjjwalBudha000 -p Jszg8sL@8ZD7EHb'
                 // sh 'docker login -u ${DOCKERHUB_CREDENTIAL_USR} -p ${DOCKERHUB_CREDENTIAL_PSW}'
                 sh 'docker tag nodejs:latest ujjwalbudha000/myrepo:v9'
                 sh 'docker push ujjwalbudha000/myrepo:v9'
