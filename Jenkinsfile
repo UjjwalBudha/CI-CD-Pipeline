@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage("Build Nodejs Image") {
             steps {
-                sh 'docker login -u "budhaujjwal" -p "ujjwalbudha"'
+                
                 sh 'sudo docker build -t nodejs .'
                 sh 'docker images'
                 sh 'docker ps'
