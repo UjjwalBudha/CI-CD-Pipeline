@@ -5,22 +5,22 @@ pipeline {
     //     AWS_ACCESS_KEY_ID = credentials('access_key')
     //     AWS_SECRET_ACCESS_KEY = credentials('secret_key')
     // }
-    // stages {
-    //     stage("Build Nodejs Image") {
-    //         steps {
-    //             sh 'docker build -t nodejs .'
-    //             sh 'docker images'
-    //             sh 'docker ps'
-    //             sh 'ls -ltr'
-    //         }
-    //     }
-    //     stage("Delivery of Image to Docker Hub") {
-    //         steps {
-    //             // sh 'docker login -u ${DOCKERHUB_CREDENTIAL_USR} -p ${DOCKERHUB_CREDENTIAL_PSW}'
-    //             sh 'docker tag nodejs:latest ujjwalbudha000/myrepo:v9'
-    //             sh 'docker push ujjwalbudha000/myrepo:v9'
-    //         }
-    //     }
+    stages {
+        stage("Build Nodejs Image") {
+            steps {
+                sh 'sudo docker build -t nodejs .'
+                sh 'docker images'
+                sh 'docker ps'
+                sh 'ls -ltr'
+            }
+        }
+        stage("Delivery of Image to Docker Hub") {
+            steps {
+                // sh 'docker login -u ${DOCKERHUB_CREDENTIAL_USR} -p ${DOCKERHUB_CREDENTIAL_PSW}'
+                sh 'docker tag nodejs:latest ujjwalbudha000/myrepo:v9'
+                sh 'docker push ujjwalbudha000/myrepo:v9'
+            }
+        }
         stage("Provisioning the kubernetes server") {
             steps {
                 sh 'terraform init'
