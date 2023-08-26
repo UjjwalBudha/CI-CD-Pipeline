@@ -16,7 +16,7 @@ pipeline {
         }
         stage("Delivery of Image to Docker Hub") {
             steps {
-                sh 'docker login -u ${DOCKERHUB_CREDENTIAL_USR} -p ${DOCKERHUB_CREDENTIAL_PSW}'
+                // sh 'docker login -u ${DOCKERHUB_CREDENTIAL_USR} -p ${DOCKERHUB_CREDENTIAL_PSW}'
                 sh 'docker tag nodejs:latest ujjwalbudha000/myrepo:v9'
                 sh 'docker push ujjwalbudha000/myrepo:v9'
             }
