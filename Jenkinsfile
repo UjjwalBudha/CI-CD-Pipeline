@@ -1,10 +1,10 @@
 pipeline {
     agent any
-    environment {
-        // DOCKERHUB_CREDENTIAL = credentials('docker_cred')
-        // AWS_ACCESS_KEY_ID = credentials('access_key')
-        // AWS_SECRET_ACCESS_KEY = credentials('secret_key')
-    }
+    // environment {
+    //     DOCKERHUB_CREDENTIAL = credentials('docker_cred')
+    //     AWS_ACCESS_KEY_ID = credentials('access_key')
+    //     AWS_SECRET_ACCESS_KEY = credentials('secret_key')
+    // }
     stages {
         stage("Build Nodejs Image") {
             steps {
