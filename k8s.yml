@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nodejs-test
+  labels:
+    app: nodejs
+ 
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: nodejs
+    spec:
+      containers:
+        - name: nodejs-container
+          image: ujjwalbudha000/myrepo:v9
+  selector:
+    matchLabels:
+      app: nodejs
