@@ -1,9 +1,9 @@
 pipeline {
     agent any
     environment {
-        DOCKERHUB_CREDENTIAL = credentials('docker_cred')
-        AWS_ACCESS_KEY_ID = credentials('access_key')
-        AWS_SECRET_ACCESS_KEY = credentials('secret_key')
+        // DOCKERHUB_CREDENTIAL = credentials('docker_cred')
+        // AWS_ACCESS_KEY_ID = credentials('access_key')
+        // AWS_SECRET_ACCESS_KEY = credentials('secret_key')
     }
     stages {
         stage("Build Nodejs Image") {
@@ -32,7 +32,7 @@ pipeline {
         }
         stage("Terraform plan") {
             steps {
-                sh 'terraform plan'
+                sh 'terraform build'
                 sh 'echo "i am up till here"'
             }
         }
