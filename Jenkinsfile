@@ -1,7 +1,7 @@
 pipeline {
     agent any
     // environment {
-    //     DOCKERHUB_CREDENTIAL = credentials('docker_cred')
+   
     //     AWS_ACCESS_KEY_ID = credentials('access_key')
     //     AWS_SECRET_ACCESS_KEY = credentials('secret_key')
     // }
@@ -17,9 +17,16 @@ pipeline {
         }
         stage("Delivery of Image to Docker Hub") {
             steps {
-                // sh 'docker login -u ${DOCKERHUB_CREDENTIAL_USR} -p ${DOCKERHUB_CREDENTIAL_PSW}'
-                sh 'docker tag nodejs:latest ujjwalbudha000/myrepo:v9'
-                sh 'docker push ujjwalbudha000/myrepo:v9'
+               withCredentials([usernamePassword(
+                    credentialsId: "docker_cred",
+                    passwordVariable: "dockerhubPass",
+                    usernameVariable: "dockerhubUser"
+                    )]) {
+                        sh "docker login -u ${env.dockerhubUser} -p ${env.dockerhubPass}"
+                    }    
+                sh 'docker tag nodejs:latest budhaujjwal/test:v9'
+                sh 'docker push budhaujjwal/test:v9' 
+               
             }
         }
         stage("Provisioning the kubernetes server") {
