@@ -24,19 +24,19 @@ ing pipeline {
                
             }
         }
-        stage("setting up the k8s server") {
-            steps {
-                sh 'terraform init'
-                sh 'terraform fmt'
-                // sh "aws configure set aws_access_key_id ${access_key}"
-                // sh "aws configure set aws_secret_access_key ${secret_key}"
-                // sh 'curl http://checkip.amazonaws.com > publicip.txt' 
-            }
-        }
-        stage("provisioning the k8s server") {
-            steps {
-                sh 'terraform apply -auto-apply'
-            }
-        }
+        // stage("setting up the k8s server") {
+        //     steps {
+        //         sh 'terraform init'
+        //         sh 'terraform fmt'
+        //         // sh "aws configure set aws_access_key_id ${access_key}"
+        //         // sh "aws configure set aws_secret_access_key ${secret_key}"
+        //         // sh 'curl http://checkip.amazonaws.com > publicip.txt' 
+        //     }
+        // }
+        // stage("provisioning the k8s server") {
+        //     steps {
+        //         sh 'terraform apply -auto-apply'
+        //     }
+        // }
     }
 }
