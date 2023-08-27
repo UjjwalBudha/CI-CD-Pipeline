@@ -35,7 +35,17 @@ pipeline {
         }
         stage("provisioning the k8s server") {
             steps {
-                sh 'terraform apply -auto-approve'
+                  withCredentials([
+                    [
+                            $class: 'AmazonWebServicesCredentialsBinding',
+                            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
+                            credentialsId: 'aws_cred'
+                            ]
+                            ]) {
+                                sh 'terraform apply -auto-approve'
+                                }
+                
             }
         }
     }
