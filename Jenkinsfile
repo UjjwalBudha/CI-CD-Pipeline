@@ -28,9 +28,9 @@ pipeline {
             steps {
                 sh 'terraform init'
                 sh 'terraform fmt'
-                // sh "aws configure set aws_access_key_id ${access_key}"
-                // sh "aws configure set aws_secret_access_key ${secret_key}"
-                // sh 'curl http://checkip.amazonaws.com > publicip.txt' 
+                sh 'aws configure set aws_access_key_id 'access key' && aws configure set aws_secret_access_key 'secretkey' && aws configure set default.region 'us-east-1' && aws configure set output json
+'
+                
             }
         }
         stage("provisioning the k8s server") {
