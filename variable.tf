@@ -10,7 +10,7 @@ variable "vpcs_id" {
 
 variable "instance_type" {
   type    = string
-  default = "t2.micro"
+  default = "t2.medium"
 }
 
 variable "security_group_id" {
