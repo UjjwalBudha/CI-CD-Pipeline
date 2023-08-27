@@ -38,15 +38,9 @@ pipeline {
                 // sh 'curl http://checkip.amazonaws.com > publicip.txt' 
             }
         }
-        stage("Terraform plan") {
-            steps {
-                sh 'terraform build'
-                sh 'echo "i am up till here"'
-            }
-        }
         stage("Deployment to Minikube") {
             steps {
-                sh "echo 'working till here'"
+                sh 'terraform apply -auto-apply'
             }
         }
     }
