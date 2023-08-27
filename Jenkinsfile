@@ -1,4 +1,4 @@
-pipeline {
+ing pipeline {
     agent any
     // environment {
    
@@ -29,7 +29,7 @@ pipeline {
                
             }
         }
-        stage("Provisioning the kubernetes server") {
+        stage("setting up the k8s server") {
             steps {
                 sh 'terraform init'
                 sh 'terraform fmt'
@@ -38,7 +38,7 @@ pipeline {
                 // sh 'curl http://checkip.amazonaws.com > publicip.txt' 
             }
         }
-        stage("Deployment to Minikube") {
+        stage("provisioning the k8s server") {
             steps {
                 sh 'terraform apply -auto-apply'
             }
