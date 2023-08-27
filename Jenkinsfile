@@ -35,7 +35,7 @@ pipeline {
         }
         stage("provisioning the k8s server") {
             steps {
-                sh 'terraform apply -auto-apply'
+                sh 'terraform apply -auto-approve'
             }
         }
     }
