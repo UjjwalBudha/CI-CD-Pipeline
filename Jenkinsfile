@@ -9,7 +9,7 @@ pipeline {
         stage("Build Nodejs Image") {
             steps {
                 
-                sh 'sudo docker build -t nodejs .'
+                sh 'docker build -t nodejs .'
                 sh 'docker images'
                 sh 'docker ps'
                 sh 'ls -ltr'
