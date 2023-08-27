@@ -27,6 +27,11 @@ pipeline {
                 sh 'terraform init'
                 sh 'terraform fmt'
                 
+                
+            }
+        }
+        stage("Provisioning the k8s server") {
+            steps {
                 withCredentials([string(
                     credentialsId: "aws_cred",
                     variable: "awsCredentials"
@@ -39,10 +44,6 @@ pipeline {
                         aws configure set output json
                     '''
                 }
-            }
-        }
-        stage("Provisioning the k8s server") {
-            steps {
                 sh 'terraform apply -auto-approve'                
             }
         }
