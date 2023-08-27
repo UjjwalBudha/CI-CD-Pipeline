@@ -32,18 +32,6 @@ pipeline {
         }
         stage("Provisioning the k8s server") {
             steps {
-                withCredentials([string(
-                    credentialsId: "aws_cred",
-                    variable: "awsCredentials"
-                )]) {
-                    sh '''
-                        echo "${awsCredentials}" > aws_credentials
-                        aws configure set aws_access_key_id $(cat aws_credentials | grep aws_access_key_id | cut -d= -f2)
-                        aws configure set aws_secret_access_key $(cat aws_credentials | grep aws_secret_access_key | cut -d= -f2)
-                        aws configure set default.region 'us-east-1'
-                        aws configure set output json
-                    '''
-                }
                 sh 'terraform apply -auto-approve'                
             }
         }
