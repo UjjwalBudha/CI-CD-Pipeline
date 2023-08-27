@@ -1,1 +1,39 @@
-
+pipeline {
+    agent any
+    stages {
+        stage("Build Nodejs Image") {
+            steps {
+                bat 'docker build -t nodejs .'
+                bat 'docker images'
+                bat 'docker ps'
+                bat 'ls -ltr'
+            }
+        }
+        stage("Delivery of Image to Docker Hub") {
+            steps {
+               withCredentials([usernamePassword(
+                    credentialsId: "docker_cred",
+                    passwordVariable: "dockerhubPass",
+                    usernameVariable: "dockerhubUser"
+                )]) {
+                    bat "docker login -u ${env.dockerhubUser} -p ${env.dockerhubPass}"
+                }    
+                bat 'docker tag nodejs:latest budhaujjwal/test:v9'
+                bat 'docker push budhaujjwal/test:v9' 
+            }
+        }
+        stage("Setting up the k8s server") {
+            steps {
+                bat 'terraform init'
+                bat 'terraform fmt'
+                
+                
+            }
+        }
+        stage("Provisioning the k8s server") {
+            steps {
+                bat 'terraform apply -auto-approve'                
+            }
+        }
+    }
+}
